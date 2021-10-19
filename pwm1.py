@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import os
 
 GPIO.setmode(GPIO.BCM)
 
@@ -11,20 +12,21 @@ GPIO.setup(18, GPIO.OUT)
 pwm1 = GPIO.PWM(18, 1000)
 
 #prende in input luce e sensore IR accende la luce al 50% e appena passa qualcosa la alza al 100%
-def dimmerLuce(j, i):  
+def dimmerLuce(j, i): 
     
     if(GPIO.input(i) == False):
         j.ChangeDutyCycle(100)
         time.sleep(2)
         j.ChangeDutyCycle(50)
-    print(GPIO.input(4))
+
 
 
 if __name__ == '__main__':
     try:
+        
         pwm1.start(0)
         pwm1.ChangeDutyCycle(50)
-        while(True):
+        while(True ):
             dimmerLuce(pwm1, 23)
                 
                 
