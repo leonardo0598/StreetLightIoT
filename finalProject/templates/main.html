@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+    <head>
+        <title>SmartStreetLight</title>
+        <style>
+            .check {
+              background-color: #1c87c9;
+            }
+          </style>
+    </head>
+    <body>
+        
+        <h1>Smart Street Light</h1>
+        <h2>Control light</h2>
+        <div id = lightOne>
+            <h3>Control light One</h3>
+            <form name = "dataLightOne" action = "/light" method = "post">
+                <button type = "radio" name = "18" id = "oneAutomatic" value ="Automatic" onclick= "click()" class = "check"></button>
+                <label for = "oneAutomatic">
+                    Automatic
+                </label>
+                
+                <button  name = "18" id = "oneOn" value ="On" onclick= "click()" class= "check"></button>
+                <label for = "oneOn">
+                    On
+                </label>
+
+                <button type = "radio" name = "18" id = "oneOff" value ="Off" onclick= "click()"></button>
+                <label for = "oneOff">
+                    Off
+                </label>
+            </form>
+        </div>
+
+        <div id = lightTwo>
+            <h3>Control light Two</h3>
+            <form name = "dataLightTwo" action = "/light" method = "post">
+
+                <button type = "radio" name = "13" id = "twoAutomatic" value ="Automatic" onclick="click()"></button>
+                <label for = "twoAutomatic">
+                    Automatic
+                </label>
+                <button type = "radio" name = "13" id = "twoOn" value ="On" onclick="click()"></button>
+                <label for = "twoOn">
+                    On
+                </label>
+                <button type = "radio" name = "13" id = "twoOff" value ="Off" onclick="click()"></button>
+                <label for = "twoOff">
+                    Off
+                </label>
+            </form>
+        </div>
+    </body>
+</html>
