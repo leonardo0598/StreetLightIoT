@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+    <head>
+        <title>SmartStreetLight</title>
+        <style>
+            .check {
+              background-color: #1c87c9;
+            }
+            
+            .uncheck{
+                background-color: none;
+            }
+            
+          </style>
+    </head>
+    <body>
+        
+        <h1>Smart Street Light</h1>
+        <h2>Control light</h2>
+        <div id = lightOne>
+
+            <h3>{{lights}}</h3>
+            <h3>Control light One</h3>
+            <form name = "dataLightOne" action = "/light" method = "post">
+                {%if lights[18]['button'] == 'AUTO':%}
+                    <button type = "radio" name = "18" id = "oneAutomatic" value ="Automatic" onclick= "click()" class="check"></button>
+                {%else:%}    
+                    <button type = "radio" name = "18" id = "oneAutomatic" value ="Automatic" onclick= "click()" class="uncheck" ></button>
+                {%endif%}    
+                    <label for = "oneAutomatic">
+                        Automatic
+                    </label>
+
+                {%if lights[18]['button'] == 'ON':%}
+                    <button type = "radio" name = "18" id = "oneOn" value ="On" onclick= "click()" class="check" ></button>
+                {%else:%}
+                    <button type = "radio" name = "18" id = "oneOn" value ="On" onclick= "click()" class="uncheck" ></button>
+                {%endif%}    
+                    <label for = "oneOn">
+                        On
+                    </label>
+
+                {%if lights[18]['button'] == 'OFF':%}
+                    <button type = "radio" name = "18" id = "oneOff" value ="Off" onclick= "click()" class="check" ></button>
+                {%else:%}    
+                    <button type = "radio" name = "18" id = "oneOff" value ="Off" onclick= "click()" class="uncheck" ></button>
+                {%endif%}    
+                    <label for = "oneOff">
+                        Off
+                    </label>
+                
+            </form>
+        </div>
+
+        <div id = lightTwo>
+            <h3>Control light Two</h3>
+            <form name = "dataLightTwo" action = "/light" method = "post">
+
+                {%if lights[13]['button'] == 'AUTO':%}
+                    <button type = "radio" name = "13" id = "twoAutomatic" value ="Automatic" onclick="click()" class= "check" ></button>
+                {%else:%} 
+                    <button type = "radio" name = "13" id = "twoAutomatic" value ="Automatic" onclick="click()" class= "uncheck" ></button>
+                {%endif%}    
+                <label for = "twoAutomatic">
+                        Automatic
+                    </label>
+
+                {%if lights[13]['button'] == 'ON':%}
+                    <button type = "radio" name = "13" id = "twoOn" value ="On" onclick="click()" class= "check"></button>
+                {%else:%}
+                    <button type = "radio" name = "13" id = "twoOn" value ="On" onclick="click()" class= "uncheck"></button>
+                {%endif%}    
+                    <label for = "twoOn">
+                        On
+                    </label>
+
+                {%if lights[13]['button'] == 'OFF':%}
+                    <button type = "radio" name = "13" id = "twoOff" value ="Off" onclick="click() " class= "check"></button>
+                {%else:%}    
+                    <button type = "radio" name = "13" id = "twoOff" value ="Off" onclick="click() " class= "uncheck"></button>
+                {%endif%}        
+                    <label for = "twoOff">
+                        Off
+                    </label>
+            </form>
+        </div>
+    </body>
+</html>
