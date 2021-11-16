@@ -8,8 +8,8 @@ app = Flask(__name__)
 GPIO.setmode(GPIO.BCM)
 #Creo un dizionario per le due luci con nome e stato e il suo pin
 lights = {
-   18:{'button': "AUTO", 'sensor': 23, 'pwm': False,'p': 'start'},
-   13:{'button': "AUTO", 'sensor': 22, 'pwm': False,'p': 'start'} 
+   18:{'button': "OFF", 'sensor': 23, 'pwm': False,'p': 'start'},
+   13:{'button': "OFF", 'sensor': 22, 'pwm': False,'p': 'start'} 
    }
 #setup delle 2 luci e impostazione a low
 for light in lights:
