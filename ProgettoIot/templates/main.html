@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8"> 
+           
+        <title>SmartStreetLight</title>
+        <style>
+            body{
+                background-image: url(../static/images/sfondo.gif);
+                
+                
+            }
+            .check {
+                display: inline-block;
+                padding: 25px 35px;
+                font-size: 24px;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+                outline: none;
+                color: #fff;
+                background-color: #4CAF50;
+                border: none;
+                border-radius: 25px;
+                box-shadow: 0 9px #999;
+            }
+
+            .check:active {
+                background-color: #3e8e41;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+            }
+
+
+            .uncheck {
+                display: inline-block;
+                padding: 25px 35px;
+                font-size: 24px;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+                background-color: red;
+                outline: none;
+                color: #fff;
+                
+                border: none;
+                border-radius: 25px;
+                box-shadow: 0 9px #999;
+            }
+
+            .uncheck:active {
+                background-color: #ac0909;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+            }
+
+            h1{
+                margin:0;
+                text-align: center;
+            }
+            h2{
+                margin-bottom: 10px;
+                text-align: center;
+            }
+
+            table{
+                
+               margin:auto;
+                
+            }
+            td{
+    
+                padding-top: 10px;
+                text-align: center;
+                width: 100px;
+            }
+            #lightOne{
+                
+                padding-top: 8px;
+                border-style: solid;
+                border-width: 1px;
+                border-bottom: none;
+                width: 240px;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 20px;
+                margin-bottom:30px;
+                box-shadow: 0 7px #999;
+            }
+            #lightTwo{
+                padding-top: 8px;
+                border-style: solid;
+                border-width:1px;
+                border-bottom: none;
+                width: 240px;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 20px;
+                margin-bottom:30px;
+                box-shadow: 0 7px #999;
+            }
+            #box{
+                opacity: 0.7;
+                margin:auto;
+                background-color:white;
+                margin-top: 100px;
+                padding-top: 60px;
+                padding-bottom: 70px;
+                height: 400px;
+                width: 500px;
+                box-shadow: 40px -15px #F9FF35;
+                box-shadow: 100px black;
+                border-radius: 300px;
+                filter: alpha(opacity=60); /* For IE8 and earlier */
+            }
+        </style>
+    </head>
+    <body>
+        <div id= "box">
+            <h1>Smart Street Light</h1>
+            <h2>Control light</h2>
+            <div id = "lightOne">
+                <form name = "dataLightOne" action = "/light" method = "post">
+                    <div id = tabella>
+                    <table>
+                        <caption>Control light One</caption>
+                        <tr>
+                            <td>
+                                Auto
+                            </td>
+                            <td>
+                                On
+                            </td>
+                            <td>
+                                Off
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {%if lights[18]['button'] == 'AUTO':%}
+                                    <button type = "radio" name = "18" id = "oneAutomatic" value ="Automatic" onclick= "click()" class="check"></button>
+                                {%else:%}    
+                                    <button type = "radio" name = "18" id = "oneAutomatic" value ="Automatic" onclick= "click()" class="uncheck" ></button>
+                                {%endif%}    
+                            </td>        
+                            <td>
+                                {%if lights[18]['button'] == 'ON':%}
+                                    <button type = "radio" name = "18" id = "oneOn" value ="On" onclick= "click()" class="check" ></button>
+                                {%else:%}
+                                    <button type = "radio" name = "18" id = "oneOn" value ="On" onclick= "click()" class="uncheck" ></button>
+                                {%endif%}    
+                            </td>        
+                            <td>
+                                {%if lights[18]['button'] == 'OFF':%}
+                                    <button type = "radio" name = "18" id = "oneOff" value ="Off" onclick= "click()" class="check" ></button>
+                                {%else:%}    
+                                    <button type = "radio" name = "18" id = "oneOff" value ="Off" onclick= "click()" class="uncheck" ></button>
+                                {%endif%}    
+                            </td>
+                        </tr>
+                    </table>
+                    </div>        
+                </form>
+            </div>
+
+            <div id = "lightTwo">
+                <form name = "dataLightTwo" action = "/light" method = "post">
+                    <table>
+                        <caption>Control light Two</caption>
+                        <tr>
+                            <td>
+                                Auto
+                            </td>
+                            <td>
+                                On
+                            </td>
+                            <td>
+                                Off
+                            </td>
+                        </tr>   
+                        <tr>
+                            <td>
+                                {%if lights[13]['button'] == 'AUTO':%}
+                                    <button type = "radio" name = "13" id = "twoAutomatic" value ="Automatic" onclick="click()" class= "check" ></button>
+                                {%else:%} 
+                                    <button type = "radio" name = "13" id = "twoAutomatic" value ="Automatic" onclick="click()" class= "uncheck" ></button>
+                                {%endif%}    
+                            </td>    
+                            <td>
+                                {%if lights[13]['button'] == 'ON':%}
+                                    <button type = "radio" name = "13" id = "twoOn" value ="On" onclick="click()" class= "check"></button>
+                                {%else:%}
+                                    <button type = "radio" name = "13" id = "twoOn" value ="On" onclick="click()" class= "uncheck"></button>
+                                {%endif%}    
+                            </td>        
+                            <td>
+                                {%if lights[13]['button'] == 'OFF':%}
+                                    <button type = "radio" name = "13" id = "twoOff" value ="Off" onclick="click() " class= "check"></button>
+                                {%else:%}    
+                                    <button type = "radio" name = "13" id = "twoOff" value ="Off" onclick="click() " class= "uncheck"></button>
+                                {%endif%}        
+                            </td>       
+                        </tr>            
+                    </table>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

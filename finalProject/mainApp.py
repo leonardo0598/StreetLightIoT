@@ -9,8 +9,8 @@ app = Flask(__name__)
 GPIO.setmode(GPIO.BCM)
 #Creo un dizionario per le due luci con nome e stato e il suo pin
 lights = {
-   18: {'name' : 'lightOne', 'state' : GPIO.LOW},
-   13 : {'name' : 'lightTwo', 'state' : GPIO.LOW}
+   18: 'uncheck',#{'name' : 'lightOne', 'state' : 'uncheck'},
+   13 : 'uncheck'#{'name' : 'lightTwo', 'state' : GPIO.LOW}
    }
 
 #setup delle 2 luci e impostazione a low
@@ -25,8 +25,8 @@ def main():
 
    # For each pin, read the pin state and store it in the pins dictionary:
    for light in lights:
-       
-      lights[light]['state'] = GPIO.input(light)
+      lights[light]  = GPIO.input(light)
+      #lights[light]['state'] = GPIO.input(light)
 
    # Put the pin dictionary into the template data dictionary:
    templateData = {
@@ -42,12 +42,16 @@ def click():
    for light in lights: 
       value = request.form.get(str(light))
       if value == 'On':
+         
          GPIO.output(light, True)
       if value == 'Off':     
          GPIO.output(light, False)
       # For each pin, read the pin state and store it in the pins dictionary:
    for light in lights:
-      lights[light]['state'] = GPIO.input(light)
+      if GPIO.input(light) == True:
+         lights[light] = 'check'
+      else:
+         lights[light] = 'uncheck'
 
    # Along with the pin dictionary, put the message into the template data dictionary:
    templateData = {
@@ -84,5 +88,5 @@ def action():
 
 
 if __name__ == "__main__":
-   app.run(host='192.168.1.2', port=80, debug=True)
+   app.run(host='192.168.0.101', port=80, debug=True)
 
