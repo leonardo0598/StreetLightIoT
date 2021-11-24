@@ -3,12 +3,14 @@
         <meta charset="UTF-8"> 
            
         <title>SmartStreetLight</title>
+
         <style>
+            /*CSS della pagina html per gestire soprattutto il click con il cambio di colore per ogni pulsante*/
+            
             body{
-                background-image: url(../static/images/sfondo.gif);
-                
-                
+                background-image: url(../static/images/sfondo.gif); 
             }
+
             .check {
                 display: inline-block;
                 padding: 25px 35px;
@@ -120,6 +122,7 @@
         <div id= "box">
             <h1>Smart Street Light</h1>
             <h2>Control light</h2>
+            <!--in sintesi in base all'action e al dizionario aggiornato cambia i pulsanti tra auto on e off -->
             <div id = "lightOne">
                 <form name = "dataLightOne" action = "/light" method = "post">
                     <div id = tabella>
