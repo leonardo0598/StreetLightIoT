@@ -3,9 +3,9 @@ import time
 import multiprocessing
 from multiprocessing import Process
 
-from flask import Flask, render_template, request
+from flask import (Flask, render_template, request, redirect, session) #LOGIN redirect e session
 app = Flask(__name__)
-
+app.secret_key = "3482121"
 GPIO.setmode(GPIO.BCM)
 
 #Creo un dizionario per le due luci con bottone sensore abbinato stato pwm e processo in automatico
@@ -13,6 +13,9 @@ lights = {
    18:{'button': "OFF", 'sensor': 23, 'pwm': False,'p': 'start'},
    13:{'button': "OFF", 'sensor': 22, 'pwm': False,'p': 'start'} 
    }
+#LOGIN credenziali in un dizionario
+user = {"username": "tiziocaio", "psw": "1234"}
+
 #setup dei 2 sensori a infrarossi in gpio.in
 for light in lights:
    GPIO.setup(lights[light]['sensor'], GPIO.IN)
@@ -61,20 +64,61 @@ def dimmerLuce(j, i):
       else:
          j.stop()
 
-#funzioni all'apertura della pagina
-@app.route('/')
-def main():
 
-   #all'apertura della pagina web passa il dizionario lights in templateData
-   templateData = {
-      'lights' : lights
-   }
-   #passa il templatedata nel template main.html e lo ritorna all'utente
-   return render_template('main.html', **templateData)
-   
+
+
+###----------------------------------------------
+@app.route('/')
+def index():
+   return render_template('login.html')
+
+@app.route('/login', methods = ['POST', 'GET'])
+def login():
+   if(request.method == 'POST'):
+      username = request.form.get('username')
+      password = request.form.get('psw')     
+      if username == user['username'] and password == user['psw']:
+            
+         session['user'] = username
+         return redirect('/dashboard')
+
+      return "<h1>Wrong username or password</h1>"    
+
+   return render_template("login.html")
+
+#Step -5(creating route for dashboard and logout)
+@app.route('/dashboar')
+def dashboard():
+   if('user' in session and session['user'] == user['username']):
+      return '<h1>Welcome to the dashboard</h1>'
+    
+
+   return '<h1>You are not logged in.</h1>' 
+
+#Step -6(creating route for logging out)
+@app.route('/logout')
+def logout():
+    session.pop('user')         
+    return redirect('/login')
+
+###---------------------------------------------------
+
+
+
+
+#funzioni all'apertura della pagina
+@app.route('/dashboard') 
+def main():
+   if('user' in session and session['user'] == user['username']):
+      #all'apertura della pagina web passa il dizionario lights in templateData
+      templateData = {
+         'lights' : lights
+      }
+      #passa il templatedata nel template main.html e lo ritorna all'utente
+      return render_template('main.html', **templateData)
+   return "non sei loggato"
 #funzioni quando riceve una richiesta POST per l'action /light
 @app.route('/light', methods = ['POST'])
-
 def click():
    #recupera il valore di light trasformandolo in stringa
    for light in lights: 
@@ -93,6 +137,7 @@ def click():
       #Se Off cambia button in OFF e spegne la luce, inoltre se è attivo un processo p(automatico) lo termina
       if value == 'Off':
          lights[light]['button'] = "OFF"
+         #questa prima condizione serve solo per gestire il caso base ovvero quando si clicca OFF senza far partire alcun processo
          if not lights[light]['p'] == 'start':
             if lights[light]['p'].is_alive():
                lights[light]['p'].terminate()
