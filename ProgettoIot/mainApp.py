@@ -31,7 +31,7 @@ for light in lights:
 ldr = 4
 
 #codice per fotoresistenza
-def valueFoto (pin):
+def valuePhoto (pin):
    count = 0
    #Output del pin ldr
    GPIO.setup(ldr, GPIO.OUT)
@@ -46,12 +46,12 @@ def valueFoto (pin):
    return count
 
 #prende in input luce e sensore IR accende la luce al 40% e appena passa qualcosa la alza al 100% considerando la luce circostante
-def dimmerLuce(j, i):
+def dimmerLights(j, i):
    
    while(True):
       
       #condizione per accendere le luci
-      if(valueFoto(ldr) > 10000):
+      if(valuePhoto(ldr) > 10000):
          #le luci si accendono al 40%
          j.start(0)
          j.ChangeDutyCycle(40)
@@ -67,11 +67,13 @@ def dimmerLuce(j, i):
 
 
 
-###----------------------------------------------
+#all'apertura apre la pagina di login
 @app.route('/')
 def index():
    return render_template('login.html')
 
+
+#gestione autenticazione login
 @app.route('/login', methods = ['POST', 'GET'])
 def login():
    if(request.method == 'POST'):
@@ -86,16 +88,9 @@ def login():
 
    return render_template("login.html")
 
-#Step -5(creating route for dashboard and logout)
-@app.route('/dashboar')
-def dashboard():
-   if('user' in session and session['user'] == user['username']):
-      return '<h1>Welcome to the dashboard</h1>'
-    
 
-   return '<h1>You are not logged in.</h1>' 
 
-#Step -6(creating route for logging out)
+#logout dell'utente
 @app.route('/logout')
 def logout():
     session.pop('user')         
@@ -150,7 +145,7 @@ def click():
          
          lights[light]['button'] = "AUTO"
          lights[light]['pwm'].stop()   
-         lights[light]['p'] = Process(target = dimmerLuce, args=(lights[light]['pwm'], lights[light]['sensor']))
+         lights[light]['p'] = Process(target = dimmerLights, args=(lights[light]['pwm'], lights[light]['sensor']))
          lights[light]['p'].start()
    
 
@@ -168,6 +163,7 @@ def click():
 
 if __name__ == "__main__":
    try:
+      #host del raspberry 
       app.run(host='192.168.1.2', port=80, debug=True)
    #in caso di interruzione del programma termina gli eventuali processi attivi                   
    except KeyboardInterrupt:
