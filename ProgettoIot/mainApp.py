@@ -8,12 +8,12 @@ app = Flask(__name__)
 app.secret_key = "3482121"
 GPIO.setmode(GPIO.BCM)
 
-#Creo un dizionario per le due luci con bottone sensore abbinato stato pwm e processo in automatico
+#Creo un dizionario per le due luci con bottone selezionato,sensore abbinato, stato pwm e processo in esecuzione
 lights = {
    18:{'button': "OFF", 'sensor': 23, 'pwm': False,'p': 'start'},
    13:{'button': "OFF", 'sensor': 22, 'pwm': False,'p': 'start'} 
    }
-#LOGIN credenziali in un dizionario
+#LOGIN credenziali in un dizionario per semplificare
 user = {"username": "tiziocaio", "psw": "1234"}
 
 #setup dei 2 sensori a infrarossi in gpio.in
